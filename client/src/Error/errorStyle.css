@@ -1,0 +1,60 @@
+.error-page{
+    width: 100%;
+    height: 99vh;
+    background: #37517e;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-family:Arial, Helvetica, sans-serif;
+}
+#tsparticles{
+    background: #37517e;
+    background: linear-gradient( 0.25turn, #233A87, #475EC6, #609CD2);
+}
+.content{
+    position: absolute;
+    color: white;
+}
+
+.h1-404{
+    font-size: 200px !important;
+}
+
+.p-404{
+    font-size: 5rem;
+}
+
+.content-container{
+    text-align: center;
+}
+
+.content-container h1{
+    font-size: 5rem;
+}
+
+.content-container p{
+    font-size: 2rem;
+}
+
+.error-btn{
+    background: #37517e;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+}
+
+.error-btn:hover{
+    background: #475EC6;
+    color: white;
+}
+
+.return-btn{
+    background: #37517e;
+    color: white;
+}
+
+.return-btn:hover{
+    color:white;
+}

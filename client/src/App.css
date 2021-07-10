@@ -1,0 +1,267 @@
+
+/*--------------------------------Landing Page Styles---------------------------------*/
+
+.hero-container{
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero{
+    width: 100%;
+    height: 88vh;
+    background: #37517e;
+}
+
+section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+*,::after,::before{
+    box-sizing:border-box;
+}
+
+#hero h1{
+    margin: 0 0 10px 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    color: white;
+}
+
+.nav-colored{
+    background: #47b2e4;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+    opacity: 0.8;
+    transition: 0.5s ease-in-out;
+}
+
+#hero h2{
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+#hero .btn-try-now{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 28px 11px 28px;
+    border-radius: 2px;
+    transition: 0.5s;
+    margin: 10px 0 0 0;
+    color: white;
+    background: #47b2e4;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+}
+
+footer{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: white;
+    background-color: #37517e;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+}
+
+.footer-content{
+    padding: 25px 15px 15px 15px;
+}
+
+.github-icon{
+    justify-content: flex-end !important;
+}
+
+.github-icon a{
+    color: white;
+}
+
+a:hover, a:visited, a:link, a:active{
+    text-decoration: none;
+}
+
+.home-icon{
+    color: white;
+    font-size: 35px;
+    margin-top: 12px;
+}
+
+.home-icon:hover{
+    color:white;
+}
+
+.btn-try-now:hover{
+    transform:scale(1.10);
+}
+
+.features{
+    margin-top: 90px;
+    height: 400px;
+    justify-content: center;
+}
+
+.features-other{
+    justify-content:center;
+    height: 400px;
+}
+
+.first-feature,.second-feature{
+    font-family: Arial, Helvetica, sans-serif;
+    height: 300px;
+    width: 450px;
+    color: Black;
+    justify-content: center;
+    box-shadow: 0px 0 25px 0 rgb(0 0 0 / 10%);
+}
+
+.second-feature{
+    margin-left: 40px;
+}
+
+.first-feature:hover,.second-feature:hover{
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+}
+
+.circle{
+    position: relative;
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    transform: translate(180px,50px);
+    background: #47b2e4;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+    color: white;
+}
+
+.feature-icon{
+    transform: translate(23px, 20px);
+    font-size: 2rem;
+}
+
+.feature-text{
+    padding-top: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+
+.feature-text h3{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.subtext{
+    font-size: 18px;
+    color: rgba(0,0,0,0.6);
+}
+
+.logout-btn{
+    padding-right: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    color: white;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width:992px){
+    .landing-img{
+        display:none;
+    }
+
+    #hero{
+        background-color: #37517e;
+    }
+
+    .circle{
+        display:none;
+    }
+
+    .features,.features-other{
+        flex-direction: column !important;
+        height: 800px !important;
+        align-items: center;
+        margin-top: 0px;
+    }
+
+    .first-feature,.second-feature{
+        width: 80%;
+        margin-left: 0px;
+        background: #47b2e4;
+        background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+        color: white;
+    }
+
+    .second-feature{
+        margin-top: 100px;
+    }
+
+    .feature-text{
+        padding-top: 90px;
+    }
+
+    .feature-text h3{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .subtext{
+        font-size: 24px;
+        color: rgba(255,255,255,0.6);
+    }
+
+    footer{
+        background-color: #283266;
+    }
+}
+
+/*--------------------------------Start call page styles---------------------------------*/
+
+.call-page{
+    background-color: #37517e;
+    height: 100vh;
+}
+
+#start-call{
+    width: 100%;
+    height: 90vh;
+    text-align: center;
+    color: white;
+}
+
+.call-content{
+    padding-top: 8vh;
+}
+
+
+.call-btn{
+    background: linear-gradient(0.25turn, #4266db, #475EC6, #609CD2) !important;
+    border: none;
+    color: white;
+}
+
+.submit-btn{
+    background: linear-gradient(0.25turn, #4266db, #475EC6, #609CD2) !important;
+    border: none;
+    margin-left: 10px;
+    color: white;
+}
+
+.call-btn:hover{
+    border: none;
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+    color: white;
+}
+
+.submit-btn:hover{
+    border: none;
+    color: white;
+}

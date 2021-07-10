@@ -1,0 +1,84 @@
+.login-page {
+  height: 99vh;
+  width: 100%;
+  background: #37517e;
+  background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form{
+  position: absolute;
+  color: white;
+  text-align: center;
+  height: 85%;
+  width: 45%;
+  background-color: white;
+  color: black;
+  box-shadow: 0px 0 25px 0 rgb(0 0 0 / 10%);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius:10px;
+}
+
+.registration-form{
+  position: absolute;
+  color: white;
+  text-align: center;
+  height: 70%;
+  width: 45%;
+  background-color: white;
+  color: black;
+  box-shadow: 0px 0 25px 0 rgb(0 0 0 / 10%);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius:10px;
+}
+
+.register-with-google{
+  background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+  color: white;
+  font-size: 20px;
+  width: 55%;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  padding: .375rem .75rem;
+}
+
+.email,.password,.username{
+  margin-bottom: 20px;
+  width: 100%;
+  height:50px;
+}
+
+.reg-form{
+  width: 90%;
+}
+
+.login-with-google{
+  display: flex;
+  cursor: pointer;
+  display: flex;
+  cursor: pointer;
+  background: #37517e;
+  background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+  color: white;
+  width: 50%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  border-radius: 10px;
+}
+
+.bg-particles {
+  background: linear-gradient( 0.25turn, #233A87, #475EC6, #609CD2);
+}
