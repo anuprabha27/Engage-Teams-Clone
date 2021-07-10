@@ -9,6 +9,7 @@ import {AuthProvider} from './Contexts/AuthContext';
 import RoomFull from './Error/roomFull';
 import Error404 from './Error/404';
 import UserLeft from './Error/userLeft';
+import UserLogin from './Error/userLogin';
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
               <CreateRoom />
             </Route>
             <Route exact path="/:id">
-              <Room />
+              {localStorage.getItem('isLoggedIn')?<Room />:<UserLogin/>}
             </Route>
         </Switch>
       </AuthProvider>

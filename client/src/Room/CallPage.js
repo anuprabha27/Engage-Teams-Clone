@@ -57,6 +57,7 @@ const Room = (props) => {
     const meetingURL = `${window.location.pathname}`;
 
     const newUserName = localStorage.getItem('username');
+    localStorage.setItem('roomID',roomID);
 
     useEffect(() => {
         socketRef.current = io("/");

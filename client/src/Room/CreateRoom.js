@@ -14,7 +14,7 @@ const StartCall = () => {
 
   const startCall = () => {
     const uid = nanoid();
-    localStorage.setItem('roomID',uid);
+    // localStorage.setItem('roomID',uid);
     history.push(`/${uid}`);
   };
 
@@ -23,6 +23,7 @@ const StartCall = () => {
     //   history.push('/error/404');
     // if(link.length>21)
     //   history.push('/error/404');
+    // localStorage.setItem('roomID',uid);
     history.push(link);
   }
 
