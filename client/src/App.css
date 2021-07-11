@@ -13,6 +13,10 @@
     background: #37517e;
 }
 
+#header-change{
+    background: #37517e;
+}
+
 section {
     padding: 60px 0;
     overflow: hidden;
@@ -36,7 +40,6 @@ section {
     opacity: 0.8;
     transition: 0.5s ease-in-out;
 }
-
 #hero h2{
     color: rgba(255,255,255,0.8);
     margin-bottom: 50px;

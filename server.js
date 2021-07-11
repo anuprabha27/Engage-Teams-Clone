@@ -6,7 +6,6 @@ const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
 const path = require('path');
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (process.env.NODE_ENV === 'production') {
@@ -23,8 +22,10 @@ const socketToRoom = {};
 
 const usernames = {};
 
+const usernamesSocket = {};
+
 io.on('connection', socket => {
-    socket.on("join room", ({roomID,newUserName}) => {
+    socket.on("join room", ({roomID,newUserName,userID}) => {
         console.log("Called join room");
         /*A new peer tries to join the room specified by roomID 
             1. Check if the room already exists
@@ -41,19 +42,29 @@ io.on('connection', socket => {
                 return;
             }
             users[roomID].push(socket.id);
-            usernames[socket.id] = {newUserName};
         } else {
             users[roomID] = [socket.id];
-            usernames[socket.id] = {newUserName};
         }
+        usernames[userID] = {newUserName};
+        usernamesSocket[socket.id] = {newUserName};
         socketToRoom[socket.id] = roomID;
         const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
         const userNamesInRoom = {};
-        usersInThisRoom.forEach(userID => {
-            userNamesInRoom[userID] = usernames[userID];
+        usersInThisRoom.forEach(id => {
+            userNamesInRoom[id] = usernamesSocket[id];
         })
         socket.emit("other users", userNamesInRoom);
     });
+
+    socket.on("join chat room",({roomID,userName,userID}) => {
+        const msg = `${userName} joined!`;
+        io.to(roomID).emit('new user',msg);
+        socket.join(roomID);
+    })
+
+    socket.on("send chat message",({roomID,userName,msg}) => {
+        io.in(roomID).emit('receive chat message',{msg,userName});
+    })
 
     //sending signal => Event for peer.on('signal')
     socket.on("sending signal", newUser => {
@@ -67,7 +78,7 @@ io.on('connection', socket => {
 
     /* Send a message to other users in the chat */
 
-    socket.on('send-message', ({ roomID, msg, sender }) => {
+    socket.on('send-message', ({ roomID, msg, sender,userID }) => {
         const usersInThisRoom = users[roomID];
         usersInThisRoom?.forEach(id => {
             io.to(id).emit("receive-message",{msg,sender});

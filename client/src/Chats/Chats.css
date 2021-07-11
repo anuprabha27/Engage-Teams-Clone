@@ -1,0 +1,78 @@
+.Chat {
+    font-family: sans-serif;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+  }
+  .left {
+    width: 100%;
+    height: 100%;
+  }
+  .left-chat {
+    width: 30%;
+    height: 100%;
+  }
+  .right {
+    width: 70%;
+    height: 100%;
+    background: #37517e;
+    background: linear-gradient(0.25turn, #233A87, #475EC6, #609CD2);
+    color: white;
+  }
+  .chat-room-message {
+    width: 100%;
+    height: 100%;
+  }
+  .chat-header{
+    background:#37517e !important;
+}
+
+
+  .chat-tab{
+      height:70px;
+      background: rgba(51,87,126,0.7);
+      margin: 20px 0px;
+      color: white;
+      font-size: 25px;
+      padding: 20px;
+      cursor: pointer;
+  }
+
+  .message-box{
+      height:100%;
+      width:100%;
+  }
+  .message-box-hidden{
+      display:none;
+  }
+  .my-message{
+      display: flex;
+      flex-direction: column;
+      justify-content: right;
+      align-items: flex-end;
+      margin-top: 20px;
+      margin-right: 35px;
+      font-size: 18px;
+  }
+  .their-message{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 35px;
+    font-size: 18px;
+}
+  .chat-username{
+    padding-right: 65px;
+    color: rgba(255,255,255,0.7)
+  }
+
+  .message-text{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px 20px;
+    border: 1px solid #37517e;
+    border-radius: 10px;
+    background: #37517e;
+  }

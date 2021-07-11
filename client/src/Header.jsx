@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import firebase from 'firebase';
 
-const Header = () => {
+const Header = (props) => {
     //get user from AuthContext
 
     const user = localStorage.getItem("isLoggedIn");
@@ -41,7 +41,9 @@ const Header = () => {
     //function to logout a user
     const handleLogout = async() => {
         await firebase.auth().signOut();
-        localStorage.clear();
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('username');
+        localStorage.removeItem('id');
         history.push("/login");
     }
 
@@ -50,7 +52,7 @@ const Header = () => {
         history.push("/login");
     }
     return (
-        <header id = "header" className = "fixed-top" style = {{display:"flex",flexDirection:"row"}}>
+        <header id = {props.change?"header-change":"header"} className = "fixed-top" style = {{display:"flex",flexDirection:"row"}}>
             <div className = "container d-flex align-items-center logo" style = {{marginLeft:"100px"}}>
                 <a href="/" className = "home-icon" data-aos="fade-down" data-aos-delay="20"><FontAwesomeIcon icon = {faQuoteLeft}/></a>
             </div>

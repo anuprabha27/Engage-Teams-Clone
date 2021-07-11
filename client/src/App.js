@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Landing from './LandingPage/Landing';
 import CreateRoom from "./Room/CreateRoom";
-import Room from "./Room/CallPage";
 import LoginForm from './Login/Login';
 import RegistrationForm from './Login/Register';
 import {AuthProvider} from './Contexts/AuthContext';
@@ -10,8 +9,24 @@ import RoomFull from './Error/roomFull';
 import Error404 from './Error/404';
 import UserLeft from './Error/userLeft';
 import UserLogin from './Error/userLogin';
+import Room from "./Room/CallPage";
+import Loki from 'lokijs';
+import Chat from './Chats/Chats';
+import ChatRoom from './Chats/ChatRoom';
 
 function App() {
+  var db = new Loki('localdb.db',{
+    env:"BROWSER",
+    autosave:true,
+    autoload:true,
+    autoloadCallback:dbInitialize
+  });
+  function dbInitialize(){
+      if(!db.getCollection('roomMsgs'))
+          db.addCollection('roomMsgs');
+      if(!db.getCollection('rooms'))
+          db.addCollection('rooms');
+  }
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -37,8 +52,14 @@ function App() {
             <Route exact path = '/startCall'>
               <CreateRoom />
             </Route>
+            <Route exact path = '/chats'>
+              <Chat db = {db}/>
+            </Route>
+            <Route exact path = '/chats/:id'>
+              <ChatRoom db = {db} />
+            </Route>
             <Route exact path="/:id">
-              {localStorage.getItem('isLoggedIn')?<Room />:<UserLogin/>}
+              {localStorage.getItem('isLoggedIn')?<Room db = {db}/>:<UserLogin/>}
             </Route>
         </Switch>
       </AuthProvider>

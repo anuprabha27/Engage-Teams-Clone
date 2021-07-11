@@ -14,22 +14,16 @@ const StartCall = () => {
 
   const startCall = () => {
     const uid = nanoid();
-    // localStorage.setItem('roomID',uid);
     history.push(`/${uid}`);
   };
 
   const handleSubmit = () => {
-    // if(link.length<21)
-    //   history.push('/error/404');
-    // if(link.length>21)
-    //   history.push('/error/404');
-    // localStorage.setItem('roomID',uid);
     history.push(link);
   }
 
   return (
     <div className="call-page">
-      <Header />
+      <Header change = {false}/>
       <section id = "start-call">
                 <div className = "container">
                     <div className = "row">

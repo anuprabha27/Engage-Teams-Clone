@@ -23,7 +23,7 @@ const Landing = () => {
     return(
         <div style = {{height:"100vh"}}>
 
-            <Header />
+            <Header change = {false}/>
             <section id = "hero" className = "d-flex align-items-center justify-content-center">
                 <div style = {{background:"linear-gradient(0.25turn, #233A87, #475EC6, #609CD2)"}}>
                     <Particles />
@@ -37,7 +37,8 @@ const Landing = () => {
                             </h2>
                             <div className = "d-flex justify-content-center justify-content-lg-start">
                                 {/* <a href  ="/startCall" className = "btn-try-now">Try now</a> */}
-                                <a href = {user?"/startCall":"/login"} className = "btn-try-now">Try Now</a>
+                                <a href = {user?"/startCall":"/login"} className = "btn-try-now">Video Call</a>
+                                <a href = {user?"/chats":"/login"} style = {{marginLeft:"35px"}} className = "btn-try-now">Chats</a>
                             </div>
                         </div>
                         <div className = "col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in-up" data-aos-delay="100">

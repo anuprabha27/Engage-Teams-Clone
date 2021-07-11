@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import './CallPage.css'
-
+import { useAuth } from "../Contexts/AuthContext";
+import Loki from "lokijs";
 
 const StyledVideo = styled.video`
     height: 100%;
@@ -29,12 +30,6 @@ const Video = (props) => {
         <StyledVideo className = "remote-video" playsInline autoPlay ref={ref} />
     );
 }
-
-
-const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2
-};
 
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
@@ -57,7 +52,18 @@ const Room = (props) => {
     const meetingURL = `${window.location.pathname}`;
 
     const newUserName = localStorage.getItem('username');
-    localStorage.setItem('roomID',roomID);
+    const userID = localStorage.getItem('id');
+    var roomMsgs = props.db.getCollection('roomMsgs');
+    var rooms = props.db.getCollection('rooms');
+    const userRooms = rooms.findOne({userID:userID});
+    if(userRooms){
+        if(!userRooms.rooms.find(roomIds => roomIds === roomID))
+            userRooms.rooms.push(roomID);
+        rooms.update(userRooms);
+    }else{
+        rooms.insert({userID:userID,rooms:[roomID]});
+    }
+    console.log(rooms.data);
 
     useEffect(() => {
         socketRef.current = io("/");
@@ -65,7 +71,7 @@ const Room = (props) => {
             if(userVideo.current)
                 userVideo.current.srcObject = stream;
             userStream.current = stream;
-            socketRef.current.emit("join room", {roomID,newUserName});
+            socketRef.current.emit("join room", {roomID,newUserName,userID});
             console.log("Joined the room");
 
 
@@ -274,11 +280,24 @@ const Room = (props) => {
         setShowChat(val);
     }
     const sendMessage = (e) => {
-        console.log("Sending a message to everyone in the room")
+        console.log("Sending a message to everyone in the room");
         e.preventDefault();
         const msg = inputRef.current?.value;
-        const userID = socketRef.current?.id;
-        socketRef.current.emit("send-message",{roomID,msg,sender: userID});
+        const userSocketID = socketRef.current?.id;
+        const currMsgs = roomMsgs.findOne({roomID:roomID});
+        if(currMsgs){
+            var msgs = [];
+            currMsgs.msgs.forEach(message => {
+                msgs.push(message);
+            })
+            msgs.push({sender:newUserName,text:msg});
+            currMsgs.msgs = msgs;
+            roomMsgs.update(currMsgs);
+        }else{
+            roomMsgs.insert({roomID:roomID,msgs:[{sender:newUserName,text:msg}]});
+        }
+        console.log(roomMsgs.data);
+        socketRef.current.emit("send-message",{roomID,msg,sender: userSocketID,userID});
         if(inputRef.current)
             inputRef.current.value = '';
     }
