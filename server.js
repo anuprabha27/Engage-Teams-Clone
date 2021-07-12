@@ -56,22 +56,11 @@ io.on('connection', socket => {
         socket.emit("other users", userNamesInRoom);
     });
 
-    socket.on("join chat room",({roomID,userName,userID}) => {
-        const msg = `${userName} joined!`;
-        io.to(roomID).emit('new user',msg);
-        socket.join(roomID);
-    })
-
-    socket.on("send chat message",({roomID,userName,msg}) => {
-        io.in(roomID).emit('receive chat message',{msg,userName});
-    })
-
-    //sending signal => Event for peer.on('signal')
     socket.on("sending signal", newUser => {
         io.to(newUser.userInRoom).emit('new user joined', { signal: newUser.signal, callerID: newUser.newUserID, newUserName: newUser.newUserName });
     });
 
-    //receiving signal
+    
     socket.on("returning signal", payload => {
         io.to(payload.callerID).emit('signal response', { signal: payload.signal, id: socket.id });
     });
