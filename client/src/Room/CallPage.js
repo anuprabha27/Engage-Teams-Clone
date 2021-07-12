@@ -9,8 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import './CallPage.css'
-import { useAuth } from "../Contexts/AuthContext";
-import Loki from "lokijs";
+import firebase from "firebase";
 
 const StyledVideo = styled.video`
     height: 100%;
@@ -53,17 +52,29 @@ const Room = (props) => {
 
     const newUserName = localStorage.getItem('username');
     const userID = localStorage.getItem('id');
-    var roomMsgs = props.db.getCollection('roomMsgs');
-    var rooms = props.db.getCollection('rooms');
-    const userRooms = rooms.findOne({userID:userID});
-    if(userRooms){
-        if(!userRooms.rooms.find(roomIds => roomIds === roomID))
-            userRooms.rooms.push(roomID);
-        rooms.update(userRooms);
-    }else{
-        rooms.insert({userID:userID,rooms:[roomID]});
-    }
-    console.log(rooms.data);
+    // var roomMsgs = props.db.getCollection('roomMsgs');
+    // var rooms = props.db.getCollection('rooms');
+    // const userRooms = rooms.findOne({userID:userID});
+    // if(userRooms){
+    //     if(!userRooms.rooms.find(roomIds => roomIds === roomID))
+    //         userRooms.rooms.push(roomID);
+    //     rooms.update(userRooms);
+    // }else{
+    //     rooms.insert({userID:userID,rooms:[roomID]});
+    // }
+    // console.log(rooms.data);
+    useEffect(() => {
+        var rooms = props.db.collection("Rooms").doc(userID);
+        if(rooms){
+            rooms.update({
+                Rooms: firebase.firestore.FieldValue.arrayUnion(roomID)
+            });
+        }else{
+            props.db.collection("Rooms").doc(userID).set({
+                Rooms: [roomID]
+            })
+        }
+    },[])
 
     useEffect(() => {
         socketRef.current = io("/");
@@ -284,19 +295,35 @@ const Room = (props) => {
         e.preventDefault();
         const msg = inputRef.current?.value;
         const userSocketID = socketRef.current?.id;
-        const currMsgs = roomMsgs.findOne({roomID:roomID});
-        if(currMsgs){
-            var msgs = [];
-            currMsgs.msgs.forEach(message => {
-                msgs.push(message);
-            })
-            msgs.push({sender:newUserName,text:msg});
-            currMsgs.msgs = msgs;
-            roomMsgs.update(currMsgs);
-        }else{
-            roomMsgs.insert({roomID:roomID,msgs:[{sender:newUserName,text:msg}]});
-        }
-        console.log(roomMsgs.data);
+        var roomMsgs = props.db.collection("Message").doc(roomID);
+        roomMsgs.get().then((doc) => {
+            if(doc.exists){
+                roomMsgs.update({
+                    messages: firebase.firestore.FieldValue.arrayUnion({sender:userID,msg:msg,name:newUserName})
+                })
+            }else{
+                props.db.collection("Message").doc(roomID).set({
+                    messages: [{
+                        sender:userID,
+                        msg: msg,
+                        name: newUserName
+                    }]
+                });
+            }
+        })
+        // const currMsgs = roomMsgs.findOne({roomID:roomID});
+        // if(currMsgs){
+        //     var msgs = [];
+        //     currMsgs.msgs.forEach(message => {
+        //         msgs.push(message);
+        //     })
+        //     msgs.push({sender:newUserName,text:msg});
+        //     currMsgs.msgs = msgs;
+        //     roomMsgs.update(currMsgs);
+        // }else{
+        //     roomMsgs.insert({roomID:roomID,msgs:[{sender:newUserName,text:msg}]});
+        // }
+        // console.log(roomMsgs.data);
         socketRef.current.emit("send-message",{roomID,msg,sender: userSocketID,userID});
         if(inputRef.current)
             inputRef.current.value = '';

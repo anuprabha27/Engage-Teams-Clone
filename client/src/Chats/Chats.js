@@ -6,14 +6,21 @@ import Header from '../Header';
 export default function Chat(props) {
     const [lst,setLst] = useState([]);
     const id = localStorage.getItem('id');
-    var rooms = props.db.getCollection('rooms');
     const history = useHistory();
     useEffect(() => {
-        const userRooms = rooms?.findOne({userID:id});
-        console.log(userRooms);
-        if(userRooms){
-            setLst(userRooms.rooms);
-        }
+        var rooms = props.db.collection('Rooms').doc(id);
+        rooms.get().then((doc) => {
+            if(doc.exists){
+                const userRooms = doc.data().Rooms;
+                setLst(userRooms);
+                console.log(doc.data().Rooms);
+            }
+        })
+        // const userRooms = rooms?.findOne({userID:id});
+        // console.log(userRooms);
+        // if(userRooms){
+        //     setLst(userRooms.rooms);
+        // }
     },[]);
     const changeSelection = (room,index) => {
         console.log("Calling change selection");
