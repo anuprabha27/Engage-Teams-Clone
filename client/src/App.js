@@ -10,24 +10,11 @@ import Error404 from './Error/404';
 import UserLeft from './Error/userLeft';
 import UserLogin from './Error/userLogin';
 import Room from "./Room/CallPage";
-import Loki from 'lokijs';
 import firebase from 'firebase';
 import Chat from './Chats/Chats';
 import ChatRoom from './Chats/ChatRoom';
 
 function App() {
-  // var db = new Loki('localdb.db',{
-  //   env:"BROWSER",
-  //   autosave:true,
-  //   autoload:true,
-  //   autoloadCallback:dbInitialize
-  // });
-  // function dbInitialize(){
-  //     if(!db.getCollection('roomMsgs'))
-  //         db.addCollection('roomMsgs');
-  //     if(!db.getCollection('rooms'))
-  //         db.addCollection('rooms');
-  // }
   var db = firebase.firestore();
   return (
     <BrowserRouter>
@@ -55,10 +42,10 @@ function App() {
               <CreateRoom />
             </Route>
             <Route exact path = '/chats'>
-              <Chat db = {db}/>
+              {localStorage.getItem('isLoggedIn')?<Chat db = {db}/>:<UserLogin/>}
             </Route>
             <Route exact path = '/chats/:id'>
-              <ChatRoom db = {db} />
+              {localStorage.getItem('isLoggedIn')?<ChatRoom db = {db}/>:<UserLogin/>}
             </Route>
             <Route exact path="/:id">
               {localStorage.getItem('isLoggedIn')?<Room db = {db}/>:<UserLogin/>}
