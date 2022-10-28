@@ -11,5 +11,3 @@ A web-based video calling and chatting app made as part of Microsoft Engage 2021
 7. In the client folder run the command npm start to start the client
 8. Open localhost:3000 in the browser
 
-## Demo
-You can checkout the demo at [https://peaceful-thicket-10559.herokuapp.com/](https://peaceful-thicket-10559.herokuapp.com/)
